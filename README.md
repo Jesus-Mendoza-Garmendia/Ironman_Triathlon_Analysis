@@ -59,6 +59,10 @@ half_ironman_distances <- data.frame(
 # Print the data frame
 print(half_ironman_distances)
 ```
+![image](https://github.com/user-attachments/assets/2f06d28f-ca2e-4b12-bba6-f93544b271f1)
+
+![image](https://github.com/user-attachments/assets/c94e0bc9-f6b4-409f-b772-4d5564bd4956)
+
 
 ## Transforming Raw Times into Actionable Metrics
 To interpret athlete performance effectively, I calculated pace and speed metrics for each segment. Swimming speed was expressed as 100m pace, biking speed in miles per hour (MPH), and running speed in minutes per mile. These derived metrics provided deeper insights into performance patterns, enabling meaningful comparisons across athletes and years.
@@ -85,6 +89,8 @@ ironman_data <- ironman_data |>
 print(ironman_data |> select(Swim_Pace_100m, Bike_Speed_MPH, Run_Pace_per_Mile))
 str(ironman_data)
 ```
+![image](https://github.com/user-attachments/assets/9cb124c5-37e3-4b91-bc14-ceaa22139c92)
+
 
 ## Unveiling Trends with Summary Tables
 To understand performance benchmarks, I summarized average segment times by year for the top 3 athletes in the M18-24 division. This exploration provided a clear view of historical performance trends, serving as a baseline to evaluate my own metrics and identify areas for improvement.
@@ -122,6 +128,8 @@ top3_m18_24_rank_avg <- top_3_m18_24 |>
 print(top3_m18_24_rank_avg)
 str(top3_m18_24_rank_avg)
 ```
+![image](https://github.com/user-attachments/assets/113c5158-1dc0-412f-82ce-2d3ab9d46b13)
+
 
 ## Predicting the Future of Ironman Performance
 I used regression analysis to create a forecast for the 2025 Ironman 70.3 race. This analysis focused on predicting times for the top 1,000 overall athletes and the top 23 in the M18-24 division. By identifying trends in performance improvement over the years, the forecast offers insights into the race's increasing competitiveness, helping set realistic expectations for my performance.
