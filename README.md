@@ -90,8 +90,7 @@ half_ironman_distances <- data.frame(
 print(half_ironman_distances)
 ```
 ![image](https://github.com/user-attachments/assets/2f06d28f-ca2e-4b12-bba6-f93544b271f1)
-<img width="1000" src="https://github-production-user-asset-6210df.s3.amazonaws.com/181696165/387429850-c94e0bc9-f6b4-409f-b772-4d5564bd4956.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241202%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241202T082422Z&X-Amz-Expires=300&X-Amz-Signature=393ac30128689bbc8b3a5ee62ba3594b6452ce8a9d854dd756029322a4ef7853&X-Amz-SignedHeaders=host" />
-![image](https://github.com/user-attachments/assets/c94e0bc9-f6b4-409f-b772-4d5564bd4956)
+<img width="500" src="https://github-production-user-asset-6210df.s3.amazonaws.com/181696165/387429850-c94e0bc9-f6b4-409f-b772-4d5564bd4956.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241202%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241202T082422Z&X-Amz-Expires=300&X-Amz-Signature=393ac30128689bbc8b3a5ee62ba3594b6452ce8a9d854dd756029322a4ef7853&X-Amz-SignedHeaders=host" />
 
 
 ## Transforming Raw Times into Actionable Metrics
