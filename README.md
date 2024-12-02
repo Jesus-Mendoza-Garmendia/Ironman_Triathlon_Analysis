@@ -461,7 +461,7 @@ slowest_for_top3 <- optimized_rankings |>
 
 ### The Final Stretch: Running Pace Refinement
 #### -------------------- Current Run Pace ----------------- VS ------------------ Required Run Pace --------------------
-#### ---------------------- (10 min/mile) ----------------- VS --------------------- (6 min/mile) --------------------
+#### ---------------------- (10 min/mile) ----------------- VS ---------------------- (6 min/mile) --------------------
 
 <img width="800" src="https://github-production-user-asset-6210df.s3.amazonaws.com/181696165/391377930-0dcaf18b-69fa-4da7-b362-ae9af831830a.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241202%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241202T005423Z&X-Amz-Expires=300&X-Amz-Signature=894bd1a54e019e69a672061e98ecb742f042e71359d8865be8f2b7abd1020ebb&X-Amz-SignedHeaders=host" />
 
