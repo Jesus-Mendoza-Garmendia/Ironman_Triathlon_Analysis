@@ -5,11 +5,12 @@ Welcome to my Ironman 70.3 analysis project, where I combine data analytics with
 
 
 ## So, What Is an Ironman 70.3?
-An Ironman 70.3, also known as a "Half Ironman," is one of the most grueling endurance events in the world. It challenges athletes to complete a 70.3-mile race, combining three segments:
+An Ironman 70.3, also known as a "Half Ironman," is one of the hardest endurance events in the world. It challenges athletes to complete a 70.3-mile race, combining three segments:
 
-Swimming: 1.2 miles (1.9 km) in open water.
-Cycling: 56 miles (90 km) on the bike.
-Running: 13.1 miles (21.1 km), which is a half-marathon.
+1. Swimming: 1.2 miles (1.9 km) in open water.
+2. Cycling: 56 miles (90 km) on the bike.
+3. Running: 13.1 miles (21.1 km), which is a half-marathon.
+
 Athletes must complete all three segments consecutively within a strict time limit, testing their physical and mental endurance. These races attract participants from all over the world, ranging from seasoned professionals to first-time competitors, each striving to push their limits.
 
 For me, the 2025 Ironman 70.3 Rockford is not just a personal goal but also an opportunity to explore how data analytics can optimize performance. This project captures that journey—breaking down every aspect of the race through data to understand where I stand and how I can improve.
