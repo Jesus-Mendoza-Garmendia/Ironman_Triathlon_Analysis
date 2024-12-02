@@ -518,6 +518,7 @@ slowest_for_top3 <- optimized_rankings |>
 <img width="800" src="https://github-production-user-asset-6210df.s3.amazonaws.com/181696165/391377930-0dcaf18b-69fa-4da7-b362-ae9af831830a.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241202%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241202T005423Z&X-Amz-Expires=300&X-Amz-Signature=894bd1a54e019e69a672061e98ecb742f042e71359d8865be8f2b7abd1020ebb&X-Amz-SignedHeaders=host" />
 <img width="800" src="https://github-production-user-asset-6210df.s3.amazonaws.com/181696165/391376761-21e9b0b5-e059-4541-ac4b-50ac60ec2a20.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241202%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241202T004411Z&X-Amz-Expires=300&X-Amz-Signature=bd31e111205fdfc6ef6e30e5d4c2171b881b6e4bd3cf1da5e30be1b049505c4c&X-Amz-SignedHeaders=host" />
 <img width="800" src="https://github-production-user-asset-6210df.s3.amazonaws.com/181696165/391380592-886bf9a9-03c3-4976-a8ca-48846e2263fc.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241202%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241202T011800Z&X-Amz-Expires=300&X-Amz-Signature=43517a8361226cda0a80d0819c8d7ba4206792b234eb5ec085d704a8c544b878&X-Amz-SignedHeaders=host" />
+![Bike Pace - Made with Clipchamp (2)](https://github.com/user-attachments/assets/c29207b9-febc-4aab-b10e-e7b37ad3c31e)
 
 
 ## Prioritizing Training: Segment Sensitivity Analysis
