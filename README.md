@@ -132,47 +132,9 @@ str(ironman_data)
 ![image](https://github.com/user-attachments/assets/9cb124c5-37e3-4b91-bc14-ceaa22139c92)
 
 
-## Unveiling Trends with Summary Tables
-To understand performance benchmarks, I summarized average segment times by year for the top 3 athletes in the M18-24 division. This exploration provided a clear view of historical performance trends, serving as a baseline to evaluate my own metrics and identify areas for improvement.
-```R
-## Step 1: Filter the data for the M18-24 division and select only the top 3 ranks for each year
-top_3_m18_24 <- ironman_data |> 
-  filter(Division == "M18-24") |> 
-  group_by(Year_of_Race) |> 
-  filter(Division_Rank == 1:3)
-
-## Step 2: Calculate the average times per segment for each year in HMS format
-top3_m18_24_yearly_avg <- top_3_m18_24 |> 
-  summarize(
-    Avg_Swim_Time = seconds_to_period(round(mean(period_to_seconds(Swim_Time), na.rm = TRUE))),
-    Avg_Bike_Time = seconds_to_period(round(mean(period_to_seconds(Bike_Time), na.rm = TRUE))),
-    Avg_Run_Time = seconds_to_period(round(mean(period_to_seconds(Run_Time), na.rm = TRUE))),
-    Avg_Total_Time = seconds_to_period(round(mean(period_to_seconds(Overall_Time), na.rm = TRUE)))
-  )
-
-# Display the structure and content to confirm HMS formatting
-print(top3_m18_24_yearly_avg)
-str(top3_m18_24_yearly_avg)
-
-## Step 3: Calculate the average segment times for each placement position
-top3_m18_24_rank_avg <- top_3_m18_24 |> 
-  group_by(Division_Rank) |> 
-  summarize(
-    Avg_Swim_Time = seconds_to_period(round(mean(period_to_seconds(Swim_Time), na.rm = TRUE))),
-    Avg_Bike_Time = seconds_to_period(round(mean(period_to_seconds(Bike_Time), na.rm = TRUE))),
-    Avg_Run_Time = seconds_to_period(round(mean(period_to_seconds(Run_Time), na.rm = TRUE))),
-    Avg_Total_Time = seconds_to_period(round(mean(period_to_seconds(Overall_Time), na.rm = TRUE)))
-  )
-
-# Display the average times per placement
-print(top3_m18_24_rank_avg)
-str(top3_m18_24_rank_avg)
-```
-![image](https://github.com/user-attachments/assets/113c5158-1dc0-412f-82ce-2d3ab9d46b13)
-
-
 ## Predicting the Future of Ironman Performance
-I used regression analysis to create a forecast for the 2025 Ironman 70.3 race. This analysis focused on predicting times for the top 1,000 overall athletes and the top 23 in the M18-24 division. By identifying trends in performance improvement over the years, the forecast offers insights into the race's increasing competitiveness, helping set realistic expectations for my performance.
+To prepare for the 2025 Ironman 70.3 race, I conducted a regression analysis to forecast performance times for two groups: the top 23 athletes in the M18-24 division and the top 1,000 athletes overall. By analyzing historical data, I identified trends in average swim, bike, run, and overall times. These trends allowed me to predict 2025 performance metrics, offering insights into the race's increasing competitiveness and helping set realistic expectations for my training goals. Below, I break down the key steps and processes in this forecasting analysis.
+
 ```R
 # Part 3.1: Forecasting Segment Times for the Top 23 Athletes in Division M18-24
 
@@ -351,6 +313,7 @@ print(pred_top23_m1824)
 print(pred_top1000)
 ```
 ![image](https://github.com/user-attachments/assets/364dfd7e-e1a6-4748-b030-5af22b037926)
+![image](https://github.com/user-attachments/assets/5d86a606-e7a7-4251-b634-28cfe0aa85ea)
 
 
 ## Where Do I Stand? Placing Myself in the Field
