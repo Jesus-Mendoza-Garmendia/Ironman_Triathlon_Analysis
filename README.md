@@ -266,16 +266,21 @@ Here is now what the trend for the Top 23 Atheletes in the M18-24 division from 
 
 
 ## Where Do I Stand? Placing Myself in the Field
-Using the forecasted tables, I predicted my division (M18-24) and overall rankings for 2025. Inputting my current metrics for swimming, biking, and running, the analysis placed me relative to the top athletes. This step provided a personalized benchmark to understand how close I am to achieving my competitive goals.
+To understand where I stand competitively, I used the forecasted rankings to place myself in both my age division (M18-24) and the overall rankings for the 2025 Ironman 70.3 Rockford. By inputting my current swimming, biking, and running metrics, I calculated my predicted total race time and compared it to the forecasted top athletes. This analysis allows me to identify the gap between my current performance and my competitive goals. Although I followed the same steps for both rankings, this section focuses on my placement in the M18-24 division for simplicity.
+
+### Code Walkthrough
+#### 1. Define My Metrics/Pace
+First, I defined my current paces for swimming (seconds per 100 meters), biking (miles per hour), and running (seconds per mile). These serve as the inputs to calculate my expected performance during the race.
 ```R
-# Step 1: Defining my paces (replace these values with my actual paces in seconds per unit)
 my_name <- "Jesus Mendoza-Garmendia"
 my_swim_pace_100m <- 110    # Swim pace in seconds per 100 meters
 my_bike_speed_mph <- 21     # Bike speed in miles per hour
 my_run_pace_per_mile <- 570 # Run pace in seconds per mile
-
-# Step 2: Calculate segment times based on distances
-# Using the swim, bike, and run distances in `half_ironman_distances` dataframe
+```
+#### 2. Calculate My Segment Times
+Using the race distances for each segment (swim, bike, run), I calculated the time required for each discipline based on my current metrics. The distances were extracted from a pre-defined dataset (half_ironman_distances).
+```R
+# Extract Distances from `half_ironman_distances` dataframe
 swim_distance_m <- half_ironman_distances |> filter(Distance == "Swim_Distance") |> pull(Meters)
 bike_distance_miles <- half_ironman_distances |> filter(Distance == "Bike_Distance") |> pull(Miles)
 run_distance_miles <- half_ironman_distances |> filter(Distance == "Run_Distance") |> pull(Miles)
@@ -285,31 +290,25 @@ my_swim_time <- round((swim_distance_m / 100) * my_swim_pace_100m)
 my_bike_time <- round((bike_distance_miles / my_bike_speed_mph) * 3600)  # Convert hours to seconds
 my_run_time <- round(run_distance_miles * my_run_pace_per_mile)
 my_transition_time <- 6 * 60  # 6 minutes in seconds
+```
+#### 3. Calculate Total Race Time
+I summed the segment times (swim, bike, run) with the transition time to estimate my total race time.
 
-# Step 3: Calculate total time including transition time
+```R
 my_total_time <- my_swim_time + my_bike_time + my_run_time + my_transition_time
-
-# Step 4: Ensure necessary columns and correct types in both tables
-if (!"Name" %in% colnames(pred_top23_m1824)) {
-  pred_top23_m1824 <- pred_top23_m1824 |> mutate(Name = NA_character_)
-}
-if (!"Name" %in% colnames(pred_top1000)) {
-  pred_top1000 <- pred_top1000 |> mutate(Name = NA_character_)
-}
-
+```
+#### 4. Prepare Forecasted Tables
+To integrate my results, I ensured the forecasted tables (pred_top23_m1824 and pred_top1000) included all necessary columns and converted key columns to numeric types for accurate ranking.
+```R
 pred_top23_m1824 <- pred_top23_m1824 |> mutate(
   Swim_Pace_100m = as.numeric(Swim_Pace_100m),
   Bike_Speed_MPH = as.numeric(Bike_Speed_MPH),
   Run_Pace_per_Mile = as.numeric(Run_Pace_per_Mile)
 )
-
-pred_top1000 <- pred_top1000 |> mutate(
-  Swim_Pace_100m = as.numeric(Swim_Pace_100m),
-  Bike_Speed_MPH = as.numeric(Bike_Speed_MPH),
-  Run_Pace_per_Mile = as.numeric(Run_Pace_per_Mile)
-)
-
-# Step 5: Insert my data into the tables
+```
+#### 5. Insert My Data
+I added my metrics and predicted times into the Top 23 (M18-24) table. Each row includes segment paces, times, and the total race time in human-readable format (HH:MM:SS). After inserting the data, I recalculated rankings to show where I would stand.
+```R
 # Convert times to HMS format for display
 my_swim_time_hms <- seconds_to_period(my_swim_time)
 my_bike_time_hms <- seconds_to_period(my_bike_time)
@@ -338,64 +337,30 @@ my_m1824_placement <- pred_top23_m1824 |>
     Predicted_Bike_Rank_2025 = rank(Predicted_Bike_Time_2025),
     Predicted_Run_Rank_2025 = rank(Predicted_Run_Time_2025)
   )
+```
+#### 6. Reorder Columns and Format
+```R
+# Reorder columns to place "Name" first
+my_m1824_placement <- my_m1824_placement[, c("Name", setdiff(names(my_m1824_placement), "Name"))]
 
-# Insert into the Top 1000 overall table
-my_overall_placement <- pred_top1000 |> 
-  add_row(
-    Name = my_name,
-    Overall_Rank = NA,  # Placeholder, will be recalculated
-    Swim_Pace_100m = my_swim_pace_100m,
-    Bike_Speed_MPH = my_bike_speed_mph,
-    Run_Pace_per_Mile = my_run_pace_per_mile,
-    Predicted_Swim_Time_2025 = my_swim_time_hms,
-    Predicted_Bike_Time_2025 = my_bike_time_hms,
-    Predicted_Run_Time_2025 = my_run_time_hms,
-    Predicted_Total_Transition_Time = my_transition_time_hms,
-    Predicted_Overall_Time_2025 = my_total_time_hms
-  ) |> 
-  arrange(Predicted_Overall_Time_2025) |> 
-  mutate(
-    Overall_Rank = row_number(),
-    Predicted_Swim_Rank_2025 = rank(Predicted_Swim_Time_2025),
-    Predicted_Bike_Rank_2025 = rank(Predicted_Bike_Time_2025),
-    Predicted_Run_Rank_2025 = rank(Predicted_Run_Time_2025)
-  )
-
-# Step 6: Ensure Name is the first column
-reorder_columns <- function(df) {
-  df <- df[, c("Name", setdiff(names(df), "Name"))]
-  return(df)
-}
-
-# Reorder columns in all relevant tables
-pred_top23_m1824 <- reorder_columns(pred_top23_m1824)
-pred_top1000 <- reorder_columns(pred_top1000)
-my_m1824_placement <- reorder_columns(my_m1824_placement)
-my_overall_placement <- reorder_columns(my_overall_placement)
-
-# Step 7: Convert Swim_Pace_100m and Run_Pace_per_Mile back to HMS format
-convert_paces_to_hms <- function(df) {
-  df <- df |> mutate(
-    Swim_Pace_100m = seconds_to_period(Swim_Pace_100m),
-    Run_Pace_per_Mile = seconds_to_period(Run_Pace_per_Mile)
-  )
-  return(df)
-}
-
-# Apply the conversion to all relevant tables
-pred_top23_m1824 <- convert_paces_to_hms(pred_top23_m1824)
-pred_top1000 <- convert_paces_to_hms(pred_top1000)
-my_m1824_placement <- convert_paces_to_hms(my_m1824_placement)
-my_overall_placement <- convert_paces_to_hms(my_overall_placement)
+# Convert numeric pace values back to time format
+my_m1824_placement <- my_m1824_placement |> mutate(
+  Swim_Pace_100m = seconds_to_period(Swim_Pace_100m),
+  Run_Pace_per_Mile = seconds_to_period(Run_Pace_per_Mile)
+)
 
 # Display the final placement tables
 print("Predicted Rank in M18-24 Division:")
 print(my_m1824_placement |> filter(Name == my_name))
-
-print("Predicted Overall Rank in Top 1000:")
-print(my_overall_placement |> filter(Name == my_name))
 ```
-![image](https://github.com/user-attachments/assets/09a1ad4e-1022-4336-9967-0a277586324b), ![image](https://github.com/user-attachments/assets/8e28aa60-0144-4dd7-adfb-df586584a373)
+
+### How I Stacked Up Against the Overall Competition
+
+![image](https://github.com/user-attachments/assets/09a1ad4e-1022-4336-9967-0a277586324b)
+
+### How I Stacked Up Against My Division
+
+![image](https://github.com/user-attachments/assets/8e28aa60-0144-4dd7-adfb-df586584a373)
 
 
 
