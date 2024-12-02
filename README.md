@@ -133,12 +133,12 @@ str(ironman_data)
 
 
 ## Predicting the Future of Ironman Performance
-To prepare for the 2025 Ironman 70.3 race, I conducted a regression analysis to forecast performance times for two groups: the top 23 athletes in the M18-24 division and the top 1,000 athletes overall. By analyzing historical data, I identified trends in average swim, bike, run, and overall times. These trends allowed me to predict 2025 performance metrics, offering insights into the race's increasing competitiveness and helping set realistic expectations for my training goals. Below, I break down the key steps and processes in this forecasting analysis.
+To prepare for the 2025 Ironman 70.3 race, I conducted a regression analysis to forecast performance times for two groups: the top 23 athletes in the M18-24 division and the top 1,000 athletes overall. By analyzing historical data, I identified trends in average swim, bike, run, and overall times. These trends allowed me to predict 2025 performance metrics, offering insights into the race's increasing competitiveness and helping set realistic expectations for my training goals. Below, I break down the key steps and processes in this forecasting analysis specifically for the Top 23 M18-24 forecast. I have not included the code for the Top 1000 Overall, however it was forecasted using the exact same methodology, simply different filters.
 
+### Part 1: Forecasting Segment Times for the Top 23 Athletes in Division M18-24
+#### 1. Data Filtering
+We began by filtering the dataset for the top 23 athletes in the M18-24 division, grouped by year, to ensure the analysis was focused on elite athletes.
 ```R
-# Part 3.1: Forecasting Segment Times for the Top 23 Athletes in Division M18-24
-
-# Step 1: Filter for top 23 athletes in the M18-24 division by rank each year
 top_23_m18_24 <- ironman_data |> 
   filter(Division == "M18-24") |> 
   group_by(Year_of_Race) |> 
@@ -148,8 +148,10 @@ top_23_m18_24 <- ironman_data |>
 
 top_23_m18_24 <- top_23_m18_24 |> 
   mutate(Division_Rank = as.numeric(Division_Rank))
-
-# Step 2: Calculate average times per rank for each year and filter out missing data
+````
+#### 2. Converting HMS to Seconds
+To facilitate time-based calculations, all times (swim, bike, run, and overall) were converted from the hms format into seconds using the period_to_seconds function. This standardization was necessary for regression analysis and forecasting.
+```R
 top_23_times_in_secs <- top_23_m18_24 |> 
   group_by(Division_Rank, Year_of_Race) |> 
   summarize(
@@ -160,8 +162,10 @@ top_23_times_in_secs <- top_23_m18_24 |>
   ) |> 
   filter(!is.na(Avg_Swim_Time), !is.na(Avg_Bike_Time), !is.na(Avg_Run_Time), !is.na(Avg_Overall_Time)) |> 
   ungroup()
-
-# Step 3: Define a function to calculate a linear trend and predict the 2025 time
+```
+#### 3. Trend Calculation Function
+A custom function, calculate_trend, was designed to compute year-over-year changes and predict future values. This function calculates the average annual change in times and uses it to forecast 2025 metrics.
+```R
 calculate_trend <- function(time_column) {
   # Get the changes in time year-over-year for each rank
   time_diffs <- diff(time_column, lag = 1)
@@ -176,8 +180,10 @@ calculate_trend <- function(time_column) {
     return(NA)
   }
 }
-
-# Step 3: Apply the trend function to each rank and segment for 2025
+```
+#### 4. Forecasting 2025 Performance
+Using the calculate_trend function, we forecasted the swim, bike, run, and overall times for each rank in 2025.
+```R
 pred_top23_m1824 <- top_23_times_in_secs |> 
   group_by(Division_Rank) |> 
   summarize(
@@ -190,71 +196,29 @@ pred_top23_m1824 <- top_23_times_in_secs |>
 
 # Display the predicted times for 2025 for each rank in HMS format
 print(pred_top23_m1824)
+```
+#### Result:
+![image](https://github.com/user-attachments/assets/5d86a606-e7a7-4251-b634-28cfe0aa85ea)
 
-#_______________________________________________________________________________
-# Part 3.2 (Alternative): Forecasting Segment Times for the Top 1000 Athletes Overall
-
-# Step 1: Filter for top 1000 athletes by overall rank each year
-top_1000_overall <- ironman_data |> 
-  arrange(Year_of_Race, Overall_Rank) |> # Sort by year and overall rank
-  group_by(Year_of_Race) |> 
-  filter(Overall_Rank %in% 1:1000) |> # Select top 1000 overall ranks
-  ungroup()
-
-# Step 2: Calculate average times per rank for each year and filter out missing data
-top_1000_times_in_secs <- top_1000_overall |> 
-  group_by(Overall_Rank, Year_of_Race) |> 
-  summarize(
-    Avg_Swim_Time = mean(period_to_seconds(Swim_Time), na.rm = TRUE),
-    Avg_Bike_Time = mean(period_to_seconds(Bike_Time), na.rm = TRUE),
-    Avg_Run_Time = mean(period_to_seconds(Run_Time), na.rm = TRUE),
-    Avg_Overall_Time = mean(period_to_seconds(Overall_Time), na.rm = TRUE)
-  ) |> 
-  filter(!is.na(Avg_Swim_Time), !is.na(Avg_Bike_Time), !is.na(Avg_Run_Time), !is.na(Avg_Overall_Time)) |> 
-  ungroup()
-
-# Step 3: Apply the trend forecasting function to each rank and segment for 2025
-pred_top1000 <- top_1000_times_in_secs |> 
-  group_by(Overall_Rank) |> 
-  summarize(
-    Predicted_Swim_Time_2025 = calculate_trend(Avg_Swim_Time),
-    Predicted_Bike_Time_2025 = calculate_trend(Avg_Bike_Time),
-    Predicted_Run_Time_2025 = calculate_trend(Avg_Run_Time),
-    Predicted_Overall_Time_2025 = calculate_trend(Avg_Overall_Time)
-  ) |> 
-  ungroup()
-
-# Display the predicted times for 2025 for each rank in HMS format
-print(pred_top1000)
-
-#_______________________________________________________________________________
-# Part 3.3: Mutate Additional Columns in Predicted Times Data
-
-# Step 1: Update Division Rank based on Predicted Overall Time (in ascending order)
+### Part 2: Mutating Predicted Data
+To enhance the interpretability of the forecasted data, several columns were added to include predicted rankings and metrics.
+#### 1. Adding Division Rank Column
+```R
 pred_top23_m1824 <- pred_top23_m1824 |> 
   arrange(Predicted_Overall_Time_2025) |>  # Arrange by Predicted Overall Time
   mutate(Division_Rank = row_number())     # Create Division Rank based on sorted Predicted Overall Time
-
-pred_top1000 <- pred_top1000 |> 
-  arrange(Predicted_Overall_Time_2025) |>  # Arrange by Predicted Overall Time
-  mutate(Overall_Rank = row_number())      # Create Overall Rank based on sorted Predicted Overall Time
-
-# Step 2: Add Predicted Swim, Bike, and Run Ranks
+```
+#### 2. Adding Segment Ranks
+```R
 pred_top23_m1824 <- pred_top23_m1824 |> 
   mutate(
     Predicted_Swim_Rank_2025 = rank(Predicted_Swim_Time_2025, ties.method = "first"),
     Predicted_Bike_Rank_2025 = rank(Predicted_Bike_Time_2025, ties.method = "first"),
     Predicted_Run_Rank_2025 = rank(Predicted_Run_Time_2025, ties.method = "first")
   )
-
-pred_top1000 <- pred_top1000 |> 
-  mutate(
-    Predicted_Swim_Rank_2025 = rank(Predicted_Swim_Time_2025, ties.method = "first"),
-    Predicted_Bike_Rank_2025 = rank(Predicted_Bike_Time_2025, ties.method = "first"),
-    Predicted_Run_Rank_2025 = rank(Predicted_Run_Time_2025, ties.method = "first")
-  )
-
-# Step 3: Calculate Predicted Total Transition Time (Overall Time - Swim Time - Bike Time - Run Time)
+```
+#### 3. Add Transition Time Column
+```R
 # Convert all relevant times to seconds for accurate calculation
 pred_top23_m1824 <- pred_top23_m1824 |> 
   mutate(
@@ -270,22 +234,9 @@ pred_top23_m1824 <- pred_top23_m1824 |>
     Predicted_Total_Transition_Time = seconds_to_period(Predicted_Total_Transition_Time_seconds)
   ) |> 
   select(-ends_with("_seconds"))  # Remove the columns in seconds for a cleaner table
-
-pred_top1000 <- pred_top1000 |> 
-  mutate(
-    Predicted_Overall_Time_2025_seconds = period_to_seconds(Predicted_Overall_Time_2025),
-    Predicted_Swim_Time_2025_seconds = period_to_seconds(Predicted_Swim_Time_2025),
-    Predicted_Bike_Time_2025_seconds = period_to_seconds(Predicted_Bike_Time_2025),
-    Predicted_Run_Time_2025_seconds = period_to_seconds(Predicted_Run_Time_2025),
-    
-    # Calculate Transition Time in seconds and then convert back to HMS
-    Predicted_Total_Transition_Time_seconds = Predicted_Overall_Time_2025_seconds - Predicted_Swim_Time_2025_seconds - Predicted_Bike_Time_2025_seconds - Predicted_Run_Time_2025_seconds,
-    
-    # Convert the transition time from seconds back to HMS format
-    Predicted_Total_Transition_Time = seconds_to_period(Predicted_Total_Transition_Time_seconds)
-  ) |> 
-  select(-ends_with("_seconds"))  # Remove the columns in seconds for a cleaner table
-
+```
+#### 4. Add Pace Metrics
+```R
 # Step 4: Add swim pace, bike speed, and run pace columns based on the same formulas used earlier
 
 # Constants for distances
@@ -301,19 +252,16 @@ pred_top23_m1824 <- pred_top23_m1824 |>
     Run_Pace_per_Mile = seconds_to_period(round(period_to_seconds(Predicted_Run_Time_2025) / run_distance_miles))
   )
 
-pred_top1000 <- pred_top1000 |> 
-  mutate(
-    Swim_Pace_100m = seconds_to_period(round((period_to_seconds(Predicted_Swim_Time_2025) / swim_distance_m) * 100)),
-    Bike_Speed_MPH = round(bike_distance_miles / (period_to_seconds(Predicted_Bike_Time_2025) / 3600), 2),
-    Run_Pace_per_Mile = seconds_to_period(round(period_to_seconds(Predicted_Run_Time_2025) / run_distance_miles))
-  )
 
 # Display the mutated tables
 print(pred_top23_m1824)
-print(pred_top1000)
 ```
+#### New Table With Mutated Columns:
+![image](https://github.com/user-attachments/assets/de4540ec-3592-4b49-898d-3db8fecbe651)
+
+#### Visualizing the Trend Over Time
+Here is now what the trend for the Top 23 Atheletes in the M18-24 division from 2017 to 2025 looks like:
 ![image](https://github.com/user-attachments/assets/364dfd7e-e1a6-4748-b030-5af22b037926)
-![image](https://github.com/user-attachments/assets/5d86a606-e7a7-4251-b634-28cfe0aa85ea)
 
 
 ## Where Do I Stand? Placing Myself in the Field
