@@ -94,13 +94,24 @@ print(half_ironman_distances)
 
 
 ## Transforming Raw Times into Actionable Metrics
-To interpret athlete performance effectively, I calculated pace and speed metrics for each segment. Swimming speed was expressed as 100m pace, biking speed in miles per hour (MPH), and running speed in minutes per mile. These derived metrics provided deeper insights into performance patterns, enabling meaningful comparisons across athletes and years.
+To better analyze athlete performance, I derived segment-specific pace and speed metrics, converting raw times into meaningful, interpretable values. Swimming speed was calculated as the average pace per 100 meters, biking speed as miles per hour (MPH), and running speed as minutes per mile. These metrics offer valuable insights into performance trends and facilitate detailed comparisons across athletes and events. Below is a detailed explanation of the code used to calculate and integrate these metrics.
+
+### Code Walkthrough
+#### 1. Extracting Distances for Calculations
+To ensure accurate calculations, the segment distances were retrieved from the half_ironman_distances reference table. This approach eliminates hardcoding values, maintaining flexibility and consistency.
 ```R
 # Extract the segment distances in the correct units from `half_ironman_distances`
 swim_distance_m <- half_ironman_distances |> filter(Distance == "Swim_Distance") |> pull(Meters)
 bike_distance_miles <- half_ironman_distances |> filter(Distance == "Bike_Distance") |> pull(Miles)
 run_distance_miles <- half_ironman_distances |> filter(Distance == "Run_Distance") |> pull(Miles)
+```
+#### 2. Calculating Pace and Speed Metrics
+Using the extracted distances, new columns were added to the dataset to calculate:
 
+- Swim Pace: Time per 100 meters, formatted as h:mm:ss for easy interpretation.
+- Bike Speed: Average speed in MPH, rounded to two decimal places.
+- Run Pace: Average time per mile, formatted as h:mm:ss.
+```R
 # Adding calculated pace and speed columns to `ironman_data`
 ironman_data <- ironman_data |> 
   mutate(
