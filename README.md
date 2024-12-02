@@ -2,6 +2,8 @@
 ![image](https://github.com/user-attachments/assets/7d6bc481-1e3e-4338-9865-6d5eee666149)
 
 Welcome to my Ironman 70.3 analysis project, where I combine data analytics with athletic performance to gain actionable insights into one of the most demanding endurance challenges. This project focuses on a 6-year historical analysis of the Ironman 70.3 Augusta race, leveraging data to forecast potential outcomes for my participation in the upcoming Ironman 70.3 Rockford race in 2025. Through web scraping, advanced data analysis, and predictive modeling, this repository not only helps me understand what it takes to succeed but also provides other athletes with a roadmap for setting and achieving their own goals. The ultimate aim is to uncover trends, identify key areas for improvement, and devise a data-driven training strategy to strive for a podium finish.
+
+
 ## So, What Is an Ironman 70.3?
 An Ironman 70.3, also known as a "Half Ironman," is one of the most grueling endurance events in the world. It challenges athletes to complete a 70.3-mile race, combining three segments:
 
