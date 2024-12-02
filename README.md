@@ -365,7 +365,10 @@ print(my_m1824_placement |> filter(Name == my_name))
 
 
 ## Striving for the Podium: Scenario Simulation and Optimization
-To explore paths to success, I developed a simulator for segment times based on sequences of performance metrics. By combining simulated results with forecasted data for the top 3 athletes in my division, I identified optimal scenarios for achieving 1st, 2nd, or 3rd place. A custom function pinpointed the closest faster times needed to meet each target, offering actionable performance goals for training.
+In this section, I explored how to achieve a podium finish (1st, 2nd, or 3rd place) in my division by simulating realistic performance scenarios. To do this, I analyzed the segment times (swim, bike, run, and transitions) of the top 3 athletes in my division and created a range of simulated performance metrics. These simulations helped identify the optimal paces and speeds required to surpass these athletes. By comparing the predicted top 3 times against these simulated results, I pinpointed actionable performance goals to aim for in training. This process required creating custom functions to handle the complex calculations and merging forecasted data with simulated results to provide a clear path for optimization. Below, I break down the steps of the code to help understand its purpose and functionality.
+### Code Walkthrough
+#### 1. Preparing Data for Simulation
+The first step is to convert key columns in the forecasted table into seconds. This ensures accurate calculations of total times, which is essential for meaningful comparisons.
 ```R
 sorted_div_placements <- pred_top23_m1824 |> 
   mutate(
@@ -373,8 +376,10 @@ sorted_div_placements <- pred_top23_m1824 |>
     Run_Pace_per_Mile_sec = period_to_seconds(Run_Pace_per_Mile),
     Total_Time = period_to_seconds(Predicted_Overall_Time_2025)
   )
-
-# Extract Top 3 Finishers' Averages
+```
+#### 2. Extracting Top 3 Finishers' Data
+We isolate data for the top 3 athletes and assign placeholder names (P1, P2, P3) for easier reference.
+```R
 top3_div_athletes <- sorted_div_placements |>
   filter(Division_Rank == 1:3) |> 
   mutate(
@@ -384,7 +389,10 @@ top3_div_athletes <- sorted_div_placements |>
       Division_Rank == 3 ~ "P3"
     )
   )
-
+```
+#### 3. Simulating Performance Scenarios
+Here, we generate a range of swim paces, bike speeds, and run paces around the performance metrics of the top 3 athletes.
+```R
 # Adjust ranges to focus on realistic scenarios
 simulated_paces <- expand.grid(
   Swim_Pace_100m_sec = seq(min(top3_div_athletes$Swim_Pace_100m_sec) + 6, 
@@ -394,8 +402,10 @@ simulated_paces <- expand.grid(
   Run_Pace_per_Mile_sec = seq(min(top3_div_athletes$Run_Pace_per_Mile_sec) + 19, 
                               max(top3_div_athletes$Run_Pace_per_Mile_sec) + 39, by = 10)
 )
-
-# Calculate total times for scenarios
+```
+#### 4. Calculating Total Times for Each Scenario
+The simulated segment paces are converted into total times (including transitions).
+```R
 simulated_results <- simulated_paces |>
   mutate(
     Swim_Time = (swim_distance_m / 100) * Swim_Pace_100m_sec,
@@ -405,8 +415,10 @@ simulated_results <- simulated_paces |>
     Total_Time = Swim_Time + Bike_Time + Run_Time + Transition_Time
   ) |>
   arrange(Total_Time)  # Sort by fastest to slowest
-
-# Combine top athletes and simulations
+```
+#### 5. Merging Simulations with Top Athletes’ Data
+We merge the simulated scenarios with the top 3 athletes' data and recalculate rankings based on total times.
+```R
 optimized_rankings <- top3_div_athletes |>
   bind_rows(
     simulated_results |>
@@ -418,9 +430,10 @@ optimized_rankings <- top3_div_athletes |>
     Swim_Pace_100m = seconds_to_period(Swim_Pace_100m_sec),
     Run_Pace_per_Mile = seconds_to_period(Run_Pace_per_Mile_sec)
   )
-
-# Get slowest times to beat each rank
-# Find rows for P1, P2, and P3 in optimized_rankings
+```
+#### 6. Identifying Times to Beat Each Top Rank
+This step pinpoints the slowest times needed to surpass the current top 3 athletes.
+```R
 p1_row <- which(optimized_rankings$Name == "P1")
 p2_row <- which(optimized_rankings$Name == "P2")
 p3_row <- which(optimized_rankings$Name == "P3")
@@ -431,11 +444,23 @@ slowest_for_top3 <- optimized_rankings |>
   mutate(Placement_I_Get = rank(Division_Rank, ties.method = "first")) |> 
   mutate(Predicted_Overall_Time_2025 = round(seconds_to_period(Total_Time)))
 ```
+### Breaking Down the Podium: Segment Goals by Placement
 ![image](https://github.com/user-attachments/assets/275e3347-55a9-459d-865b-1d7db96c8028)
-<img width="800" src="https://github-production-user-asset-6210df.s3.amazonaws.com/181696165/391377930-0dcaf18b-69fa-4da7-b362-ae9af831830a.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241202%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241202T005423Z&X-Amz-Expires=300&X-Amz-Signature=894bd1a54e019e69a672061e98ecb742f042e71359d8865be8f2b7abd1020ebb&X-Amz-SignedHeaders=host" />
+
+### Closing the Gap: Swim Pace Improvement
+####      Current Swim Pace      VS      Required Swim Pace
+
 <img width="800" src="https://github-production-user-asset-6210df.s3.amazonaws.com/181696165/391376761-21e9b0b5-e059-4541-ac4b-50ac60ec2a20.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241202%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241202T004411Z&X-Amz-Expires=300&X-Amz-Signature=bd31e111205fdfc6ef6e30e5d4c2171b881b6e4bd3cf1da5e30be1b049505c4c&X-Amz-SignedHeaders=host" />
+
+### Pedaling to the Podium: Bike Speed Progression
+####      Current Bike Pace      VS      Required Bike Pace
+ 
 <img width="800" src="https://private-user-images.githubusercontent.com/181696165/391381333-c29207b9-febc-4aab-b10e-e7b37ad3c31e.gif?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MzMxMDI4NjAsIm5iZiI6MTczMzEwMjU2MCwicGF0aCI6Ii8xODE2OTYxNjUvMzkxMzgxMzMzLWMyOTIwN2I5LWZlYmMtNGFhYi1iMTBlLWU3YjM3YWQzYzMxZS5naWY_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQxMjAyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MTIwMlQwMTIyNDBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT00ZTA1MTBlM2I5NDY4NjIxZTQ1NjdhN2M1ZTM2NDI0MzI5M2MxYjQ5OGVmNzk4N2I4NDRhMTUzMmJhNzUzNTM5JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.6PcinIfI9ox5wRKSRIa4InkSt_TibH81IuALCI3zp68" />
 
+### The Final Stretch: Running Pace Refinement
+####      Current Run Pace      VS      Required Run Pace
+
+<img width="800" src="https://github-production-user-asset-6210df.s3.amazonaws.com/181696165/391377930-0dcaf18b-69fa-4da7-b362-ae9af831830a.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241202%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241202T005423Z&X-Amz-Expires=300&X-Amz-Signature=894bd1a54e019e69a672061e98ecb742f042e71359d8865be8f2b7abd1020ebb&X-Amz-SignedHeaders=host" />
 
 ## Prioritizing Training: Segment Sensitivity Analysis
 Using simulated results, I conducted a sensitivity analysis to determine which segment improvements would yield the greatest overall time reductions. This analysis revealed which disciplines—swimming, biking, or running—warrant the most focus, helping prioritize training efforts for maximum impact on race performance.
