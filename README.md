@@ -25,7 +25,12 @@ The web scraping process allowed me to extract critical metrics from thousands o
 To keep the project streamlined, I stored the web scraping code separately in the Ironman_70.3_DataExtraction repository. While the code isn’t included here, it’s available for review if you’d like to see how I tailored the Python scripts specifically for this analysis.
 
 ## Transitioning Data into RStudio for Analytical Precision
-The cleaned dataset was imported into RStudio using the read.csv function, with additional formatting applied to time columns to ensure accurate analysis. Additionally, I created a reference table detailing the Half Ironman segment distances (in miles, yards, and meters) to facilitate metric calculations and ensure consistency in future analyses.
+To ensure the dataset was ready for a robust analysis, I imported the cleaned data into RStudio using the read.csv function. From there, categorical columns were converted to factors for efficient data handling, while time columns (originally formatted as h:mm:ss) were converted into seconds using the lubridate package for easier numerical operations. These time values were later reformatted back into h:mm:ss for readability in visualizations. Additionally, I created a reference table detailing the official Half Ironman segment distances in miles, yards, and meters. This reference ensures consistency when performing metric calculations or cross-comparing results across analyses. Below is a streamlined code snippet detailing these steps.
+
+### Code Walkthrough
+#### 1. Loading and Preparing the Dataset
+The dataset is loaded from a CSV file, and categorical columns are converted to factors for better processing and summarization. This ensures seamless handling of group-based operations.
+
 ```R
 # Load the necessary libraries
 library(dplyr)
@@ -45,7 +50,10 @@ ironman_data$Country <- as.factor(ironman_data$Country)
 ironman_data$Gender <- as.factor(ironman_data$Gender)
 ironman_data$Division <- as.factor(ironman_data$Division)
 ironman_data$Finish_Status <- as.factor(ironman_data$Finish_Status)
-
+```
+#### 2. Formatting Time Columns for Analysis
+Time columns are converted into seconds for precision in calculations, such as ranking or time-based comparisons, using the lubridate::period_to_seconds function. After performing numerical operations, the times are reformatted back to h:mm:ss for readability.
+```R 
 # Convert the time columns from h:mm:ss format using lubridate's period function
 ironman_data$Overall_Time <- period_to_seconds(hms(ironman_data$Overall_Time))
 ironman_data$Swim_Time <- period_to_seconds(hms(ironman_data$Swim_Time))
@@ -66,8 +74,10 @@ ironman_data <- ironman_data |>
 # Confirm structure to ensure the columns imported correctly
 str(ironman_data)
 head(ironman_data)
-
-
+```
+#### 4. Creating a Reference Table for Metric Calculations
+A reference table is built to define Half Ironman segment distances in various units. This table serves as a reliable source for metric conversions and ensures consistent analysis across datasets.
+```R
 # Create table for ironman distance
 half_ironman_distances <- data.frame(
   Distance = c("Overall_Distance", "Swim_Distance", "Bike_Distance", "Run_Distance"),
@@ -80,7 +90,7 @@ half_ironman_distances <- data.frame(
 print(half_ironman_distances)
 ```
 ![image](https://github.com/user-attachments/assets/2f06d28f-ca2e-4b12-bba6-f93544b271f1)
-
+<img width="1000" src="https://github-production-user-asset-6210df.s3.amazonaws.com/181696165/387429850-c94e0bc9-f6b4-409f-b772-4d5564bd4956.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241202%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241202T082422Z&X-Amz-Expires=300&X-Amz-Signature=393ac30128689bbc8b3a5ee62ba3594b6452ce8a9d854dd756029322a4ef7853&X-Amz-SignedHeaders=host" />
 ![image](https://github.com/user-attachments/assets/c94e0bc9-f6b4-409f-b772-4d5564bd4956)
 
 
