@@ -448,7 +448,7 @@ slowest_for_top3 <- optimized_rankings |>
 ![image](https://github.com/user-attachments/assets/275e3347-55a9-459d-865b-1d7db96c8028)
 
 ### Closing the Gap: Swim Pace Improvement
-#### -------------------- Current Swim Pace ------------------- VS -------------------- Required Swim Pace
+#### -------------------- Current Swim Pace ------------------ VS -------------------- Required Swim Pace --------------------
 
 <img width="800" src="https://github-production-user-asset-6210df.s3.amazonaws.com/181696165/391376761-21e9b0b5-e059-4541-ac4b-50ac60ec2a20.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241202%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241202T004411Z&X-Amz-Expires=300&X-Amz-Signature=bd31e111205fdfc6ef6e30e5d4c2171b881b6e4bd3cf1da5e30be1b049505c4c&X-Amz-SignedHeaders=host" />
 
