@@ -488,5 +488,5 @@ sensitivity_analysis <- optimized_rankings |>
 print(sensitivity_analysis)
 ```
 
-### Identifying High_Impact Training Segments
+### Identifying High-Impact Training Segments
 ![image](https://github.com/user-attachments/assets/9a4f651c-acca-49c8-97c7-69d83fede9d2)
