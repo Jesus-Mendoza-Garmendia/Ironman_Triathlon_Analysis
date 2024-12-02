@@ -259,7 +259,7 @@ print(pred_top23_m1824)
 #### New Table With Mutated Columns:
 ![image](https://github.com/user-attachments/assets/de4540ec-3592-4b49-898d-3db8fecbe651)
 
-#### Visualizing the Trend Over Time
+### Visualizing the Trend Over Time
 Here is now what the trend for the Top 23 Atheletes in the M18-24 division from 2017 to 2025 looks like:
 ![image](https://github.com/user-attachments/assets/364dfd7e-e1a6-4748-b030-5af22b037926)
 
