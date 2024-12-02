@@ -466,7 +466,10 @@ slowest_for_top3 <- optimized_rankings |>
 <img width="800" src="https://github-production-user-asset-6210df.s3.amazonaws.com/181696165/391377930-0dcaf18b-69fa-4da7-b362-ae9af831830a.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241202%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241202T005423Z&X-Amz-Expires=300&X-Amz-Signature=894bd1a54e019e69a672061e98ecb742f042e71359d8865be8f2b7abd1020ebb&X-Amz-SignedHeaders=host" />
 
 ## Prioritizing Training: Segment Sensitivity Analysis
-Using simulated results, I conducted a sensitivity analysis to determine which segment improvements would yield the greatest overall time reductions. This analysis revealed which disciplines—swimming, biking, or running—warrant the most focus, helping prioritize training efforts for maximum impact on race performance.
+To optimize training efforts, I used sensitivity analysis to evaluate how changes in each segment—swimming, biking, and running—affect overall race time. By correlating performance metrics in these segments with total race time, this analysis pinpoints which discipline improvements will have the most significant impact on achieving faster results and better rankings.
+
+This approach allows for data-driven prioritization of training, directing focus to areas where the greatest time gains can be made. For example, if running pace has the highest correlation with overall time, then improving running performance would be the most effective use of training time.
+
 ```R
 # Sensitivity Analysis: Rank Change by Segment
 sensitivity_analysis <- optimized_rankings |>
@@ -484,4 +487,6 @@ sensitivity_analysis <- optimized_rankings |>
 
 print(sensitivity_analysis)
 ```
+
+### Identifying High_Impact Training Segments
 ![image](https://github.com/user-attachments/assets/9a4f651c-acca-49c8-97c7-69d83fede9d2)
