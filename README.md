@@ -1,7 +1,7 @@
 # Ironman_Triathlon_Analysis
 ![image](https://github.com/user-attachments/assets/7d6bc481-1e3e-4338-9865-6d5eee666149)
 
-Welcome to my Ironman 70.3 analysis project, where I combine data analytics with athletic performance to gain actionable insights into one of the most demanding endurance challenges. This project focuses on a 6-year historical analysis of the Ironman 70.3 Augusta race, leveraging data to forecast potential outcomes for my participation in the upcoming Ironman 70.3 Rockford race in 2025. Through web scraping, advanced data analysis, and predictive modeling, this repository not only helps me understand what it takes to succeed but also provides other athletes with a roadmap for setting and achieving their own goals. The ultimate aim is to uncover trends, identify key areas for improvement, and devise a data-driven training strategy to strive for a podium finish.
+Welcome to my Ironman 70.3 analysis project, where I combine data analytics with athletic performance to gain actionable insights into one of the most demanding endurance challenges. This project focuses on a 6-year historical analysis of the Ironman 70.3 Augusta race, leveraging data to forecast potential outcomes for my participation in the upcoming Ironman 70.3 Rockford race on June 22, 2025. Through web scraping, advanced data analysis, and predictive modeling, this repository not only helps me understand what it takes to succeed but also provides other athletes with a roadmap for setting and achieving their own goals. The ultimate aim is to uncover trends, identify key areas for improvement, and devise a data-driven training strategy to strive for a podium finish.
 
 
 ## So, What Is an Ironman 70.3?
@@ -11,9 +11,9 @@ An Ironman 70.3, also known as a "Half Ironman," is one of the hardest endurance
 2. Cycling: 56 miles (90 km) on the bike.
 3. Running: 13.1 miles (21.1 km), which is a half-marathon.
 
-Athletes must complete all three segments consecutively within a strict time limit "(8 hours and 30 minutes)", testing their physical and mental endurance. These races attract participants from all over the world, ranging from seasoned professionals to first-time competitors, each striving to push their limits.
+Athletes must complete all three segments consecutively within a strict time limit (8 hours and 30 minutes), testing their physical and mental endurance. These races attract participants from all over the world, ranging from seasoned professionals to first-time competitors, each striving to push their limits.
 
-For me, the 2025 Ironman 70.3 Rockford is not just a personal goal but also an opportunity to explore how data analytics can optimize performance. This project captures that journey—breaking down every aspect of the race through data to understand where I stand and how I can improve.
+For me, the 2025 Ironman 70.3 Rockford is not just a personal goal but also an opportunity to explore how data analytics can optimize performance. This project captures that journey—breaking down every aspect of the race through data to understand where I currently stand and how I can improve for the future.
 
 ## Efficient Data Extraction: Building the Foundation
 With limited publicly available datasets, I began my analysis by web scraping performance data for Ironman 70.3 Augusta races from 2017, 2018, 2019, 2021, 2022, and 2023. These races were selected due to their similarity to the Rockford Ironman 70.3 event I plan to compete in for 2025. Using Python, I extracted critical metrics for thousands of athletes, ensuring a comprehensive dataset. The data was exported to a CSV file and underwent preliminary cleaning to prepare for further analysis. (Note: Web scraping code is stored separately in the repository Ironman_70.3_DataExtraction.)
