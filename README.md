@@ -515,7 +515,6 @@ slowest_for_top3 <- optimized_rankings |>
   mutate(Predicted_Overall_Time_2025 = round(seconds_to_period(Total_Time)))
 ```
 ![image](https://github.com/user-attachments/assets/275e3347-55a9-459d-865b-1d7db96c8028)
-![Untitled video - Made with Clipchamp](https://github.com/user-attachments/assets/d408b8b8-03cf-4295-b5f8-00aa1d478dbc "height=500 width= 500")
 <img width="1000" src="https://private-user-images.githubusercontent.com/181696165/391373360-d408b8b8-03cf-4295-b5f8-00aa1d478dbc.gif?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MzMwOTk2NzcsIm5iZiI6MTczMzA5OTM3NywicGF0aCI6Ii8xODE2OTYxNjUvMzkxMzczMzYwLWQ0MDhiOGI4LTAzY2YtNDI5NS1iNWY4LTAwYWExZDQ3OGRiYy5naWY_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQxMjAyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MTIwMlQwMDI5MzdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03Yjk5YjQ5MmZjOWM3MzAzMjQ2Mjk4NmIwM2I1NDAzZmM4YjE4NWRmNWM4NjllN2ZiNThhODgwYWI4MWVjZGUwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.dqNjsYnoTzZa6__YLXGXrUxmer4KNKYescG5qwFkAC0" />
 
 ## Prioritizing Training: Segment Sensitivity Analysis
