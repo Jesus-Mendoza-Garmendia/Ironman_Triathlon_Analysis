@@ -7,7 +7,7 @@ Welcome to my Ironman 70.3 analysis project, where I combine data analytics with
 ## So, What Is an Ironman 70.3?
 An Ironman 70.3, also known as a "Half Ironman," is one of the hardest endurance events in the world. It challenges athletes to complete a 70.3-mile race, combining three segments:
 
-**1. Swimming: 1.2 miles (1.9 km) in open water.**
+__1. Swimming: 1.2 miles (1.9 km) in open water.__
 **2. Cycling: 56 miles (90 km) on the bike.**
 **3. Running: 13.1 miles (21.1 km), which is a half-marathon.**
 
