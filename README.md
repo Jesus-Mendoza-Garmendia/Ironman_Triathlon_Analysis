@@ -520,7 +520,6 @@ slowest_for_top3 <- optimized_rankings |>
 <img width="800" src="https://github-production-user-asset-6210df.s3.amazonaws.com/181696165/391380592-886bf9a9-03c3-4976-a8ca-48846e2263fc.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241202%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241202T011800Z&X-Amz-Expires=300&X-Amz-Signature=43517a8361226cda0a80d0819c8d7ba4206792b234eb5ec085d704a8c544b878&X-Amz-SignedHeaders=host" />
 
 
-
 ## Prioritizing Training: Segment Sensitivity Analysis
 Using simulated results, I conducted a sensitivity analysis to determine which segment improvements would yield the greatest overall time reductions. This analysis revealed which disciplines—swimming, biking, or running—warrant the most focus, helping prioritize training efforts for maximum impact on race performance.
 ```R
