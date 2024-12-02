@@ -515,7 +515,7 @@ slowest_for_top3 <- optimized_rankings |>
   mutate(Predicted_Overall_Time_2025 = round(seconds_to_period(Total_Time)))
 ```
 ![image](https://github.com/user-attachments/assets/275e3347-55a9-459d-865b-1d7db96c8028)
-![Untitled video - Made with Clipchamp](https://github.com/user-attachments/assets/d408b8b8-03cf-4295-b5f8-00aa1d478dbc =250x250)
+![Untitled video - Made with Clipchamp](https://github.com/user-attachments/assets/d408b8b8-03cf-4295-b5f8-00aa1d478dbc "height=500 width= 500")
 
 
 ## Prioritizing Training: Segment Sensitivity Analysis
