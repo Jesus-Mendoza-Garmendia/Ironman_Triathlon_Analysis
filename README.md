@@ -75,7 +75,7 @@ ironman_data <- ironman_data |>
 str(ironman_data)
 head(ironman_data)
 ```
-#### 4. Creating a Reference Table for Metric Calculations
+#### 3. Creating a Reference Table for Metric Calculations
 A reference table is built to define Half Ironman segment distances in various units. This table serves as a reliable source for metric conversions and ensures consistent analysis across datasets.
 ```R
 # Create table for ironman distance
